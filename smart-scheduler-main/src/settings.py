@@ -17,7 +17,6 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env.bool("DEBUG", default=True)
 
 # Set allowed hosts
-# ALLOWED_HOSTS = [env('WEB_DOMAIN')] if not DEBUG else ['127.0.0.1', 'localhost']
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Application definition
@@ -75,10 +74,7 @@ WSGI_APPLICATION = 'src.wsgi.application'
 
 # Database
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': env.db(),  # This uses the DATABASE_URL from your environment
 }
 
 # Custom User Model
@@ -125,12 +121,6 @@ MESSAGE_TAGS = {
 LOGOUT_REDIRECT_URL = 'login'
 
 # Security: applied only in production
-DEBUG=True
-# if not DEBUG:
-#     SECURE_SSL_REDIRECT = True
-#     SESSION_COOKIE_SECURE = True
-#     CSRF_COOKIE_SECURE = True
-# else:
 SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
